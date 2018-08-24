@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:converters="clr-namespace:XFPrismValidation.Converters"
+             xmlns:local="clr-namespace:XFPrismValidation.Validation"
+             x:Class="XFPrismValidation.Views.MainPage"
+             Title="{Binding Title}">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:FirstErrorConverter x:Key="FirstErrorConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    
+    <ContentPage.Padding>
+        <OnPlatform x:TypeArguments="Thickness" iOS="0, 20, 0, 0" />
+    </ContentPage.Padding>
+    
+    <ScrollView>
+        <StackLayout Padding="5">
+            <Label Text="Username" />
+            <Entry Text="{Binding Model.Username, Mode=TwoWay}" local:Validation.Errors="{Binding Model.Errors[Username]}" />
+            <Label Text="{Binding Model.Errors[Username], Converter={StaticResource FirstErrorConverter}" FontSize="Small" TextColor="Red" />
+            <Label Text="Password" />
+            <Entry Text="{Binding Model.Password, Mode=TwoWay}" local:Validation.Errors="{Binding Model.Errors[Password]}" />
+            <Label Text="{Binding Model.Errors[Password], Converter={StaticResource FirstErrorConverter}" FontSize="Small" TextColor="Red" />
+            <Button x:Name="buttonSets02" Text="Login" Command="{Binding LoginCommand}" />
+        </StackLayout>
+    </ScrollView>
+
+</ContentPage>
